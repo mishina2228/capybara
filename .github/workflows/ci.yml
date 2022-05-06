@@ -1,13 +1,12 @@
 name: CI
 
 on:
-  - push
-  - pull_request
-
-env:
-  NOKOGIRI_USE_SYSTEM_LIBRARIES: true
-  JAVA_OPTS: -Djava.security.egd=file:/dev/urandom
-  WD_CACHE_TIME: 0
+  push:
+    branches-ignore:
+      - 'ie_**'
+  pull_request:
+    branches-ignore:
+      - 'ie_**'
 
 jobs:
   test:
@@ -23,6 +22,79 @@ jobs:
 #          - '3.0'
 #          - 3.1
 #          - head
+        script:
+          - travis
+        gemfile:
+          - Gemfile
+        include:
+          - ruby: '3.0'
+            env:
+              HTML5_PARSING: true
+            script: rack_smoke
+          - ruby: 2.7
+            env:
+              CAPYBARA_REMOTE: true
+          - ruby: '3.0'
+            env:
+              CAPYBARA_REMOTE: true
+              CAPYBARA_FF: true
+          - gemfile: gemfiles/Gemfile.base-versions
+            ruby: 2.6
+            env:
+              CAPYBARA_FF: true
+            # addons: firefox
+          - gemfile: gemfiles/Gemfile.base-versions
+            ruby: 2.6
+          - ruby: '3.0'
+            env:
+              HEADLESS: true
+          - gemfile: gemfiles/Gemfile.beta-versions
+            ruby: '3.0'
+            env:
+              CAPYBARA_FF: true
+            # addons: firefox
+          - gemfile: gemfiles/Gemfile.edge-firefox
+            ruby: ruby-head
+            env:
+              CAPYBARA_REMOTE: true
+              CAPYBARA_FF: true
+          - ruby: '3.0'
+            env:
+              CAPYBARA_FF: true
+            # addons: firefox
+          - ruby: 2.7
+            env:
+              CHROME_BETA: true
+              HEADLESS: true
+              # addons: chrome: beta
+          - os: macos-10.15
+            # xcode10.2
+            ruby: 2.6
+            # addons:
+            #  homebrew:
+            #    taps: homebrew/cask-versions
+            #    casks: safari-technology-preview
+            # before_script:
+            #  - "sudo /usr/bin/safaridriver --enable"
+            #  - "sudo '/Applications/Safari Technology Preview.app/Contents/MacOS/safaridriver' --enable"
+            script: spec_safari
+          - gemfile: gemfiles/Gemfile.chrome_edge
+            os: macos-10.15
+            # xcode10.2
+            ruby: 2.6
+            # addons:
+            #  homebrew:
+            #    taps: homebrew/cask-versions
+            #    casks: microsoft-edge-dev
+            # before_install:
+            #  - wget https://msedgewebdriverstorage.blob.core.windows.net/edgewebdriver/76.0.168.0/edgedriver_mac64.zip
+            #  - unzip edgedriver_mac64.zip -d /usr/local/bin
+            script: spec_edge
+    env:
+      NOKOGIRI_USE_SYSTEM_LIBRARIES: true
+      JAVA_OPTS: -Djava.security.egd=file:/dev/urandom
+      WD_CACHE_TIME: 0
+      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -40,7 +112,7 @@ jobs:
             echo "require('awful'); tags = {}; tags[1] = awful.tag({'name'})" > ~/.config/awesome/rc.lua;
             awesome &
           fi
-      - name: Set up selenium
+      - name: Set up Selenium
         run: |-
           if [[ $CAPYBARA_REMOTE = true ]]; then
             if [[ $CAPYBARA_FF = true ]]; then
@@ -52,7 +124,7 @@ jobs:
       - name: Run test
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: bundle exec rake travis
+          run: bundle exec rake ${{ matrix.script }}
 
 #  rubocop:
 #    runs-on: ubuntu-latest
