@@ -48,8 +48,10 @@ jobs:
               docker-compose up -d selenium_chrome;
             fi;
           fi
-      - name: test
-        run: bundle exec rake travis
+      - name: Run test
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake travis
 
 #  rubocop:
 #    runs-on: ubuntu-latest
