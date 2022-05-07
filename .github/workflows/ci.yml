@@ -121,12 +121,12 @@ jobs:
         run: sudo apt install awesome
         if: matrix.os == 'ubuntu-latest'
       - name: Install homebrew/cask-versions
-        run: brew taps homebrew/cask-versions
+        run: brew tap homebrew/cask-versions
         if: startsWith(matrix.os, 'macos')
       - name: Setup for spec_safari
         if: startsWith(matrix.os, 'macos') && matrix.script == 'spec_safari'
         run: |-
-          brew cask install safari-technology-preview
+          brew install --cask safari-technology-preview
           sudo /usr/bin/safaridriver --enable
           sudo '/Applications/Safari Technology Preview.app/Contents/MacOS/safaridriver' --enable
       - name: Setup for spec_edge
@@ -134,7 +134,7 @@ jobs:
         run: |-
           wget https://msedgewebdriverstorage.blob.core.windows.net/edgewebdriver/76.0.168.0/edgedriver_mac64.zip
           unzip edgedriver_mac64.zip -d /usr/local/bin
-          brew cask install microsoft-edge-dev
+          brew install --cask microsoft-edge-dev
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
