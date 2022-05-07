@@ -15,61 +15,80 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - ubuntu-latest
-        ruby:
-          - 2.7
-#          - '3.0'
-#          - 3.1
-#          - head
-        script:
-          - travis
-        gemfile:
-          - Gemfile
         include:
-          - ruby: '3.0'
+          - gemfile: Gemfile
+            ruby: '3.0'
+            os: ubuntu-latest
+            script: travis
+          - gemfile: Gemfile
+            ruby: '3.0'
+            os: ubuntu-latest
             env:
               HTML5_PARSING: true
             script: rack_smoke
-          - ruby: 2.7
+          - gemfile: Gemfile
+            ruby: 2.7
+            os: ubuntu-latest
             env:
               CAPYBARA_REMOTE: true
-          - ruby: '3.0'
+            script: travis
+          - gemfile: Gemfile
+            ruby: '3.0'
+            os: ubuntu-latest
             env:
               CAPYBARA_REMOTE: true
               CAPYBARA_FF: true
+            script: travis
           - gemfile: gemfiles/Gemfile.base-versions
             ruby: 2.6
+            os: ubuntu-latest
             env:
               CAPYBARA_FF: true
             # addons: firefox
+            script: travis
           - gemfile: gemfiles/Gemfile.base-versions
             ruby: 2.6
-          - ruby: '3.0'
+            os: ubuntu-latest
+            script: travis
+          - gemfile: Gemfile
+            ruby: '3.0'
+            os: ubuntu-latest
             env:
               HEADLESS: true
+            script: travis
           - gemfile: gemfiles/Gemfile.beta-versions
             ruby: '3.0'
+            os: ubuntu-latest
             env:
               CAPYBARA_FF: true
             # addons: firefox
+            script: travis
           - gemfile: gemfiles/Gemfile.edge-firefox
             ruby: ruby-head
+            os: ubuntu-latest
             env:
               CAPYBARA_REMOTE: true
               CAPYBARA_FF: true
-          - ruby: '3.0'
+            script: travis
+          - gemfile: Gemfile
+            ruby: '3.0'
+            os: ubuntu-latest
             env:
               CAPYBARA_FF: true
             # addons: firefox
-          - ruby: 2.7
+            script: travis
+          - gemfile: Gemfile
+            ruby: 2.7
+            os: ubuntu-latest
             env:
               CHROME_BETA: true
               HEADLESS: true
               # addons: chrome: beta
-          - os: macos-10.15
-            # xcode10.2
+            script: travis
+          - gemfile: Gemfile
             ruby: 2.6
+            os: macos-10.15
+            # xcode10.2
             # addons:
             #  homebrew:
             #    taps: homebrew/cask-versions
@@ -79,9 +98,9 @@ jobs:
             #  - "sudo '/Applications/Safari Technology Preview.app/Contents/MacOS/safaridriver' --enable"
             script: spec_safari
           - gemfile: gemfiles/Gemfile.chrome_edge
+            ruby: 2.6
             os: macos-10.15
             # xcode10.2
-            ruby: 2.6
             # addons:
             #  homebrew:
             #    taps: homebrew/cask-versions
