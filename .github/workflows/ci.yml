@@ -87,7 +87,7 @@ jobs:
             script: travis
           - gemfile: Gemfile
             ruby: 2.7
-            os: macos-10.15
+            os: macos-11
             # xcode10.2
             # addons:
             #  homebrew:
@@ -99,7 +99,7 @@ jobs:
             script: spec_safari
           - gemfile: gemfiles/Gemfile.chrome_edge
             ruby: 2.7
-            os: macos-10.15
+            os: macos-11
             # xcode10.2
             # addons:
             #  homebrew:
