@@ -132,8 +132,9 @@ jobs:
       - name: Setup for spec_edge
         if: startsWith(matrix.os, 'macos') && matrix.script == 'spec_edge'
         run: |-
-          wget https://msedgewebdriverstorage.blob.core.windows.net/edgewebdriver/76.0.168.0/edgedriver_mac64.zip
-          unzip edgedriver_mac64.zip -d /usr/local/bin
+#          wget https://msedgewebdriverstorage.blob.core.windows.net/edgewebdriver/76.0.168.0/edgedriver_mac64.zip
+#          unzip edgedriver_mac64.zip -d /usr/local/bin
+          which msedgedriver && msedgedriver --version
           brew install --cask microsoft-edge-dev
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
