@@ -15,58 +15,69 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
+        experimental: [false]
         include:
           - gemfile: Gemfile
             ruby: '3.0'
             script: travis
+            experimental: false
           - gemfile: Gemfile
             ruby: '3.0'
             env:
               HTML5_PARSING: true
             script: rack_smoke
+            experimental: false
           - gemfile: Gemfile
             ruby: '2.7'
             env:
               CAPYBARA_REMOTE: true
             script: travis
+            experimental: false
           - gemfile: Gemfile
             ruby: '3.0'
             env:
               CAPYBARA_REMOTE: true
               CAPYBARA_FF: true
             script: travis
+            experimental: false
           - gemfile: gemfiles/Gemfile.base-versions
             ruby: '2.7'
             env:
               CAPYBARA_FF: true
             # addons: firefox: latest
             script: travis
+            experimental: false
           - gemfile: gemfiles/Gemfile.base-versions
             ruby: '2.7'
             script: travis
+            experimental: false
           - gemfile: Gemfile
             ruby: '3.0'
             env:
               HEADLESS: true
             script: travis
+            experimental: false
           - gemfile: gemfiles/Gemfile.beta-versions
             ruby: '3.0'
             env:
               CAPYBARA_FF: true
             # addons: firefox: latest-beta
             script: travis
+            experimental: true
           - gemfile: gemfiles/Gemfile.edge-firefox
             ruby: ruby-head
             env:
               CAPYBARA_REMOTE: true
               CAPYBARA_FF: true
             script: travis
+            experimental: true
           - gemfile: Gemfile
             ruby: '3.0'
             env:
               CAPYBARA_FF: true
             # addons: firefox: latest
             script: travis
+            experimental: false
           - gemfile: Gemfile
             ruby: '2.7'
             env:
@@ -74,11 +85,13 @@ jobs:
               HEADLESS: true
             # addons: chrome: beta
             script: travis
+            experimental: true
     env:
       NOKOGIRI_USE_SYSTEM_LIBRARIES: true
       JAVA_OPTS: -Djava.security.egd=file:/dev/urandom
       WD_CACHE_TIME: 0
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+    continue-on-error: ${{ matrix.experimental }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -128,6 +141,7 @@ jobs:
       JAVA_OPTS: -Djava.security.egd=file:/dev/urandom
       WD_CACHE_TIME: 0
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+    continue-on-error: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
