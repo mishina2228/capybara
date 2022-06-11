@@ -25,7 +25,7 @@ jobs:
               HTML5_PARSING: true
             script: rack_smoke
           - gemfile: Gemfile
-            ruby: 2.7
+            ruby: '2.7'
             env:
               CAPYBARA_REMOTE: true
             script: travis
@@ -36,13 +36,13 @@ jobs:
               CAPYBARA_FF: true
             script: travis
           - gemfile: gemfiles/Gemfile.base-versions
-            ruby: 2.7
+            ruby: '2.7'
             env:
               CAPYBARA_FF: true
             # addons: firefox: latest
             script: travis
           - gemfile: gemfiles/Gemfile.base-versions
-            ruby: 2.7
+            ruby: '2.7'
             script: travis
           - gemfile: Gemfile
             ruby: '3.0'
@@ -68,7 +68,7 @@ jobs:
             # addons: firefox: latest
             script: travis
           - gemfile: Gemfile
-            ruby: 2.7
+            ruby: '2.7'
             env:
               CHROME_BETA: true
               HEADLESS: true
@@ -102,7 +102,7 @@ jobs:
       matrix:
         include:
           - gemfile: Gemfile
-            ruby: 2.7
+            ruby: '2.7'
             # xcode10.2
             # addons:
             #  homebrew:
@@ -113,7 +113,7 @@ jobs:
             #  - "sudo '/Applications/Safari Technology Preview.app/Contents/MacOS/safaridriver' --enable"
             script: spec_safari
           - gemfile: gemfiles/Gemfile.chrome_edge
-            ruby: 2.7
+            ruby: '2.7'
             # xcode10.2
             # addons:
             #  homebrew:
