@@ -9,85 +9,100 @@ on:
       - 'ie_**'
 
 jobs:
-  test:
+  test_on_ubuntu:
     timeout-minutes: 30
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         include:
           - gemfile: Gemfile
             ruby: '3.0'
-            os: ubuntu-latest
             script: travis
           - gemfile: Gemfile
             ruby: '3.0'
-            os: ubuntu-latest
             env:
               HTML5_PARSING: true
             script: rack_smoke
           - gemfile: Gemfile
             ruby: 2.7
-            os: ubuntu-latest
             env:
               CAPYBARA_REMOTE: true
             script: travis
           - gemfile: Gemfile
             ruby: '3.0'
-            os: ubuntu-latest
             env:
               CAPYBARA_REMOTE: true
               CAPYBARA_FF: true
             script: travis
           - gemfile: gemfiles/Gemfile.base-versions
             ruby: 2.7
-            os: ubuntu-latest
             env:
               CAPYBARA_FF: true
-            # addons: firefox
+            # addons: firefox: latest
             script: travis
           - gemfile: gemfiles/Gemfile.base-versions
             ruby: 2.7
-            os: ubuntu-latest
             script: travis
           - gemfile: Gemfile
             ruby: '3.0'
-            os: ubuntu-latest
             env:
               HEADLESS: true
             script: travis
           - gemfile: gemfiles/Gemfile.beta-versions
             ruby: '3.0'
-            os: ubuntu-latest
             env:
               CAPYBARA_FF: true
-            # addons: firefox
+            # addons: firefox: latest-beta
             script: travis
           - gemfile: gemfiles/Gemfile.edge-firefox
             ruby: ruby-head
-            os: ubuntu-latest
             env:
               CAPYBARA_REMOTE: true
               CAPYBARA_FF: true
             script: travis
           - gemfile: Gemfile
             ruby: '3.0'
-            os: ubuntu-latest
             env:
               CAPYBARA_FF: true
-            # addons: firefox
+            # addons: firefox: latest
             script: travis
           - gemfile: Gemfile
             ruby: 2.7
-            os: ubuntu-latest
             env:
               CHROME_BETA: true
               HEADLESS: true
-              # addons: chrome: beta
+            # addons: chrome: beta
             script: travis
+    env:
+      NOKOGIRI_USE_SYSTEM_LIBRARIES: true
+      JAVA_OPTS: -Djava.security.egd=file:/dev/urandom
+      WD_CACHE_TIME: 0
+      BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install awesome
+        run: sudo apt install awesome
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Run test
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: bundle exec rake ${{ matrix.script }}
+
+  test_on_macos:
+    timeout-minutes: 30
+    runs-on: macos-11
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
           - gemfile: Gemfile
             ruby: 2.7
-            os: macos-11
             # xcode10.2
             # addons:
             #  homebrew:
@@ -99,7 +114,6 @@ jobs:
             script: spec_safari
           - gemfile: gemfiles/Gemfile.chrome_edge
             ruby: 2.7
-            os: macos-11
             # xcode10.2
             # addons:
             #  homebrew:
@@ -117,20 +131,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Install awesome
-        run: sudo apt install awesome
-        if: matrix.os == 'ubuntu-latest'
       - name: Install homebrew/cask-versions
         run: brew tap homebrew/cask-versions
-        if: startsWith(matrix.os, 'macos')
       - name: Setup for spec_safari
-        if: startsWith(matrix.os, 'macos') && matrix.script == 'spec_safari'
+        if: matrix.script == 'spec_safari'
         run: |-
           brew install --cask safari-technology-preview
           sudo /usr/bin/safaridriver --enable
           sudo '/Applications/Safari Technology Preview.app/Contents/MacOS/safaridriver' --enable
       - name: Setup for spec_edge
-        if: startsWith(matrix.os, 'macos') && matrix.script == 'spec_edge'
+        if: matrix.script == 'spec_edge'
         run: |-
           which msedgedriver && msedgedriver --version
           brew install --cask microsoft-edge-dev
