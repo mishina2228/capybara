@@ -83,11 +83,11 @@ jobs:
         run: sudo apt install libxslt-dev
       - name: Set environments
         run: |
-           if [[ ${{ matrix.HTML5_PARSING }} == true ]]; then echo "HTML5_PARSING=true" >> $GITHUB_ENV; fi
-           if [[ ${{ matrix.CAPYBARA_REMOTE }} == true ]]; then echo "CAPYBARA_REMOTE=true" >> $GITHUB_ENV; fi
-           if [[ ${{ matrix.CAPYBARA_FF }} == true ]]; then echo "CAPYBARA_FF=true" >> $GITHUB_ENV; fi
-           if [[ ${{ matrix.CHROME_BETA }} == true ]]; then echo "CHROME_BETA=true" >> $GITHUB_ENV; fi
-           if [[ ${{ matrix.HEADLESS }} == true ]]; then echo "HEADLESS=true" >> $GITHUB_ENV; fi
+           if [[ "${{ matrix.HTML5_PARSING }}" == true ]]; then echo "HTML5_PARSING=true" >> $GITHUB_ENV; fi
+           if [[ "${{ matrix.CAPYBARA_REMOTE }}" == true ]]; then echo "CAPYBARA_REMOTE=true" >> $GITHUB_ENV; fi
+           if [[ "${{ matrix.CAPYBARA_FF }}" == true ]]; then echo "CAPYBARA_FF=true" >> $GITHUB_ENV; fi
+           if [[ "${{ matrix.CHROME_BETA }}" == true ]]; then echo "CHROME_BETA=true" >> $GITHUB_ENV; fi
+           if [[ "${{ matrix.HEADLESS }}" == true ]]; then echo "HEADLESS=true" >> $GITHUB_ENV; fi
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
