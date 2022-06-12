@@ -73,11 +73,6 @@ jobs:
       JAVA_OPTS: -Djava.security.egd=file:/dev/urandom
       WD_CACHE_TIME: 0
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
-      HTML5_PARSING: ${{ matrix.HTML5_PARSING == true }}
-      CAPYBARA_REMOTE: ${{ matrix.CAPYBARA_REMOTE == true }}
-      CAPYBARA_FF: ${{ matrix.CAPYBARA_FF == true }}
-      CHROME_BETA: ${{ matrix.CHROME_BETA == true }}
-      HEADLESS: ${{ matrix.HEADLESS == true }}
     continue-on-error: ${{ matrix.experimental == true }}
     steps:
       - name: Checkout code
@@ -86,6 +81,13 @@ jobs:
         run: sudo apt install awesome
       - name: Install libxslt
         run: sudo apt install libxslt-dev
+      - name: Set environments
+        run: |
+           if [[ ${{ matrix.HTML5_PARSING }} == true ]]; then echo "HTML5_PARSING=true" >> $GITHUB_ENV; fi
+           if [[ ${{ matrix.CAPYBARA_REMOTE }} == true ]]; then echo "CAPYBARA_REMOTE=true" >> $GITHUB_ENV; fi
+           if [[ ${{ matrix.CAPYBARA_FF }} == true ]]; then echo "CAPYBARA_FF=true" >> $GITHUB_ENV; fi
+           if [[ ${{ matrix.CHROME_BETA }} == true ]]; then echo "CHROME_BETA=true" >> $GITHUB_ENV; fi
+           if [[ ${{ matrix.HEADLESS }} == true ]]; then echo "HEADLESS=true" >> $GITHUB_ENV; fi
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
