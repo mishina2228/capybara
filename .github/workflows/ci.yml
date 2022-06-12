@@ -93,6 +93,22 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
+      - name: Set up a lua script
+        run: |-
+          if [[ -z $HEADLESS && -z $CAPYBARA_REMOTE ]]; then
+            mkdir -p ~/.config/awesome;
+            echo "require('awful'); tags = {}; tags[1] = awful.tag({'name'})" > ~/.config/awesome/rc.lua;
+            awesome &
+          fi
+      - name: Set up Selenium
+        run: |-
+          if [[ $CAPYBARA_REMOTE = true ]]; then
+            if [[ $CAPYBARA_FF = true ]]; then
+              docker-compose up -d selenium_firefox;
+            else
+              docker-compose up -d selenium_chrome;
+            fi;
+          fi
       - name: Run test
         uses: GabrielBB/xvfb-action@v1
         with:
@@ -154,22 +170,6 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-      - name: Set up a lua script
-        run: |-
-          if [[ -z $HEADLESS && -z $CAPYBARA_REMOTE ]]; then
-            mkdir -p ~/.config/awesome;
-            echo "require('awful'); tags = {}; tags[1] = awful.tag({'name'})" > ~/.config/awesome/rc.lua;
-            awesome &
-          fi
-      - name: Set up Selenium
-        run: |-
-          if [[ $CAPYBARA_REMOTE = true ]]; then
-            if [[ $CAPYBARA_FF = true ]]; then
-              docker-compose up -d selenium_firefox;
-            else
-              docker-compose up -d selenium_chrome;
-            fi;
-          fi
       - name: Run test
         uses: GabrielBB/xvfb-action@v1
         with:
