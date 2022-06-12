@@ -9,7 +9,7 @@ on:
       - 'ie_**'
 
 jobs:
-  test_on_ubuntu:
+  ubuntu:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     strategy:
@@ -110,7 +110,7 @@ jobs:
         with:
           run: bundle exec rake ${{ matrix.script }}
 
-  test_on_macos:
+  macos:
     timeout-minutes: 30
     runs-on: macos-11
     strategy:
