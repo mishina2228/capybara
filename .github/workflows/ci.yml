@@ -21,24 +21,20 @@ jobs:
             script: travis
           - gemfile: Gemfile
             ruby: '3.0'
-            env:
-              HTML5_PARSING: true
+            HTML5_PARSING: true
             script: rack_smoke
           - gemfile: Gemfile
             ruby: '2.7'
-            env:
-              CAPYBARA_REMOTE: true
+            CAPYBARA_REMOTE: true
             script: travis
           - gemfile: Gemfile
             ruby: '3.0'
-            env:
-              CAPYBARA_REMOTE: true
-              CAPYBARA_FF: true
+            CAPYBARA_REMOTE: true
+            CAPYBARA_FF: true
             script: travis
           - gemfile: gemfiles/Gemfile.base-versions
             ruby: '2.7'
-            env:
-              CAPYBARA_FF: true
+            CAPYBARA_FF: true
             # addons: firefox: latest
             script: travis
           - gemfile: gemfiles/Gemfile.base-versions
@@ -46,34 +42,29 @@ jobs:
             script: travis
           - gemfile: Gemfile
             ruby: '3.0'
-            env:
-              HEADLESS: true
+            HEADLESS: true
             script: travis
           - gemfile: gemfiles/Gemfile.beta-versions
             ruby: '3.0'
-            env:
-              CAPYBARA_FF: true
+            CAPYBARA_FF: true
             # addons: firefox: latest-beta
             script: travis
             experimental: true
           - gemfile: gemfiles/Gemfile.edge-firefox
             ruby: ruby-head
-            env:
-              CAPYBARA_REMOTE: true
-              CAPYBARA_FF: true
+            CAPYBARA_REMOTE: true
+            CAPYBARA_FF: true
             script: travis
             experimental: true
           - gemfile: Gemfile
             ruby: '3.0'
-            env:
-              CAPYBARA_FF: true
+            CAPYBARA_FF: true
             # addons: firefox: latest
             script: travis
           - gemfile: Gemfile
             ruby: '2.7'
-            env:
-              CHROME_BETA: true
-              HEADLESS: true
+            CHROME_BETA: true
+            HEADLESS: true
             # addons: chrome: beta
             script: travis
             experimental: true
@@ -82,6 +73,11 @@ jobs:
       JAVA_OPTS: -Djava.security.egd=file:/dev/urandom
       WD_CACHE_TIME: 0
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+      HTML5_PARSING: ${{ matrix.HTML5_PARSING == true }}
+      CAPYBARA_REMOTE: ${{ matrix.CAPYBARA_REMOTE == true }}
+      CAPYBARA_FF: ${{ matrix.CAPYBARA_FF == true }}
+      CHROME_BETA: ${{ matrix.CHROME_BETA == true }}
+      HEADLESS: ${{ matrix.HEADLESS == true }}
     continue-on-error: ${{ matrix.experimental == true }}
     steps:
       - name: Checkout code
