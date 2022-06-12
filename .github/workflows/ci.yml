@@ -69,7 +69,7 @@ jobs:
             script: travis
             experimental: true
     env:
-      NOKOGIRI_USE_SYSTEM_LIBRARIES: true
+#      NOKOGIRI_USE_SYSTEM_LIBRARIES: true
       JAVA_OPTS: -Djava.security.egd=file:/dev/urandom
       WD_CACHE_TIME: 0
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
