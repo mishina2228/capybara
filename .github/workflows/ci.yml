@@ -15,48 +15,40 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        experimental: [false]
         include:
           - gemfile: Gemfile
             ruby: '3.0'
             script: travis
-            experimental: false
           - gemfile: Gemfile
             ruby: '3.0'
             env:
               HTML5_PARSING: true
             script: rack_smoke
-            experimental: false
           - gemfile: Gemfile
             ruby: '2.7'
             env:
               CAPYBARA_REMOTE: true
             script: travis
-            experimental: false
           - gemfile: Gemfile
             ruby: '3.0'
             env:
               CAPYBARA_REMOTE: true
               CAPYBARA_FF: true
             script: travis
-            experimental: false
           - gemfile: gemfiles/Gemfile.base-versions
             ruby: '2.7'
             env:
               CAPYBARA_FF: true
             # addons: firefox: latest
             script: travis
-            experimental: false
           - gemfile: gemfiles/Gemfile.base-versions
             ruby: '2.7'
             script: travis
-            experimental: false
           - gemfile: Gemfile
             ruby: '3.0'
             env:
               HEADLESS: true
             script: travis
-            experimental: false
           - gemfile: gemfiles/Gemfile.beta-versions
             ruby: '3.0'
             env:
@@ -77,7 +69,6 @@ jobs:
               CAPYBARA_FF: true
             # addons: firefox: latest
             script: travis
-            experimental: false
           - gemfile: Gemfile
             ruby: '2.7'
             env:
