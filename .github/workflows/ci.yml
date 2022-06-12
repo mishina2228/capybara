@@ -16,57 +16,57 @@ jobs:
       fail-fast: true
       matrix:
         include:
-          - gemfile: Gemfile
-            ruby: '3.0'
+          - ruby: '3.0'
+            gemfile: Gemfile
             script: travis
           - gemfile: Gemfile
             ruby: '3.0'
-            HTML5_PARSING: true
             script: rack_smoke
-          - gemfile: Gemfile
-            ruby: '2.7'
-            CAPYBARA_REMOTE: true
+            HTML5_PARSING: true
+          - ruby: '2.7'
+            gemfile: Gemfile
             script: travis
-          - gemfile: Gemfile
-            ruby: '3.0'
+            CAPYBARA_REMOTE: true
+          - ruby: '3.0'
+            gemfile: Gemfile
+            script: travis
             CAPYBARA_REMOTE: true
             CAPYBARA_FF: true
+          - ruby: '2.7'
+            gemfile: gemfiles/Gemfile.base-versions
             script: travis
-          - gemfile: gemfiles/Gemfile.base-versions
-            ruby: '2.7'
             CAPYBARA_FF: true
             # addons: firefox: latest
-            script: travis
-          - gemfile: gemfiles/Gemfile.base-versions
-            ruby: '2.7'
+          - ruby: '2.7'
+            gemfile: gemfiles/Gemfile.base-versions
             script: travis
           - gemfile: Gemfile
             ruby: '3.0'
-            HEADLESS: true
             script: travis
-          - gemfile: gemfiles/Gemfile.beta-versions
-            ruby: '3.0'
+            HEADLESS: true
+          - ruby: '3.0'
+            gemfile: gemfiles/Gemfile.beta-versions
+            script: travis
             CAPYBARA_FF: true
             # addons: firefox: latest-beta
-            script: travis
             experimental: true
-          - gemfile: gemfiles/Gemfile.edge-firefox
-            ruby: ruby-head
+          - ruby: ruby-head
+            gemfile: gemfiles/Gemfile.edge-firefox
+            script: travis
             CAPYBARA_REMOTE: true
             CAPYBARA_FF: true
-            script: travis
             experimental: true
-          - gemfile: Gemfile
-            ruby: '3.0'
+          - ruby: '3.0'
+            gemfile: Gemfile
+            script: travis
             CAPYBARA_FF: true
             # addons: firefox: latest
+          - ruby: '2.7'
+            gemfile: Gemfile
             script: travis
-          - gemfile: Gemfile
-            ruby: '2.7'
             CHROME_BETA: true
             HEADLESS: true
             # addons: chrome: beta
-            script: travis
             experimental: true
     env:
       NOKOGIRI_USE_SYSTEM_LIBRARIES: true
