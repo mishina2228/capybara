@@ -82,7 +82,7 @@ jobs:
       JAVA_OPTS: -Djava.security.egd=file:/dev/urandom
       WD_CACHE_TIME: 0
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
-    continue-on-error: ${{ matrix.experimental }}
+    continue-on-error: ${{ matrix.experimental == true }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
