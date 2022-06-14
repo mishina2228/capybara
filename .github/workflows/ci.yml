@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         include:
           - ruby: '3.0'
@@ -140,7 +140,7 @@ jobs:
     timeout-minutes: 30
     runs-on: macos-11
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         include:
           - gemfile: Gemfile
