@@ -76,7 +76,6 @@ jobs:
       WD_CACHE_TIME: 0
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     continue-on-error: ${{ matrix.experimental == true }}
-    name: ${{  }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
