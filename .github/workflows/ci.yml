@@ -22,10 +22,10 @@ jobs:
           - ruby: '3.0'
             gemfile: Gemfile
             script: travis
-          - gemfile: Gemfile
-            ruby: '3.0'
-            script: rack_smoke
-            HTML5_PARSING: true
+#          - gemfile: Gemfile
+#            ruby: '3.0'
+#            script: rack_smoke
+#            HTML5_PARSING: true
           - ruby: '2.7'
             gemfile: Gemfile
             script: travis
@@ -76,6 +76,7 @@ jobs:
       WD_CACHE_TIME: 0
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     continue-on-error: ${{ matrix.experimental == true }}
+    name: ${{  }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
