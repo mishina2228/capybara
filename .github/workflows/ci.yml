@@ -19,9 +19,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - ruby: '3.0'
-            gemfile: Gemfile
-            script: travis
+#          - ruby: '3.0'
+#            gemfile: Gemfile
+#            script: travis
 #          - gemfile: Gemfile
 #            ruby: '3.0'
 #            script: rack_smoke
