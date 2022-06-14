@@ -22,60 +22,72 @@ jobs:
 #          - ruby: '3.0'
 #            gemfile: Gemfile
 #            script: travis
+#            name: spec_chrome, Gemfile
 #          - gemfile: Gemfile
 #            ruby: '3.0'
 #            script: rack_smoke
 #            HTML5_PARSING: true
+#            name: rack_smoke, Gemfile
           - ruby: '2.7'
             gemfile: Gemfile
             script: travis
             CAPYBARA_REMOTE: true
+            name: spec_chrome_remote, Gemfile
           - ruby: '3.0'
             gemfile: Gemfile
             script: travis
             CAPYBARA_REMOTE: true
             CAPYBARA_FF: true
+            name: spec_firefox_remote, Gemfile
           - ruby: '2.7'
             gemfile: gemfiles/Gemfile.base-versions
             script: travis
             CAPYBARA_FF: true
             FIREFOX_VERSION: latest
+            name: spec_firefox(latest), Gemfile.base-versions
           - ruby: '2.7'
             gemfile: gemfiles/Gemfile.base-versions
             script: travis
+            name: spec_chrome, Gemfile.base-versions
           - ruby: '3.0'
             gemfile: Gemfile
             script: travis
             HEADLESS: true
+            name: spec_chrome(headless), Gemfile
           - ruby: '3.0'
             gemfile: gemfiles/Gemfile.beta-versions
             script: travis
             CAPYBARA_FF: true
             FIREFOX_VERSION: latest-beta
             experimental: true
+            name: spec_firefox(latest-beta), Gemfile.beta-versions
           - ruby: ruby-head
             gemfile: gemfiles/Gemfile.edge-firefox
             script: travis
             CAPYBARA_REMOTE: true
             CAPYBARA_FF: true
             experimental: true
+            name: spec_firefox_remote, Gemfile.edge-firefox
           - ruby: '3.0'
             gemfile: Gemfile
             script: travis
             CAPYBARA_FF: true
             FIREFOX_VERSION: latest
+            name: spec_firefox(latest), Gemfile
           - ruby: '2.7'
             gemfile: Gemfile
             script: travis
             CHROME_BETA: true
             HEADLESS: true
             experimental: true
+            name: spec_chrome(beta), Gemfile
     env:
       NOKOGIRI_USE_SYSTEM_LIBRARIES: true
       JAVA_OPTS: -Djava.security.egd=file:/dev/urandom
       WD_CACHE_TIME: 0
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     continue-on-error: ${{ matrix.experimental == true }}
+    name: ${{ matrix.name }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
