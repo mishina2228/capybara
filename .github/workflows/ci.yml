@@ -43,8 +43,8 @@ jobs:
           - ruby: '2.7'
             gemfile: gemfiles/Gemfile.base-versions
             script: travis
-          - gemfile: Gemfile
-            ruby: '3.0'
+          - ruby: '3.0'
+            gemfile: Gemfile
             script: travis
             HEADLESS: true
           - ruby: '3.0'
@@ -143,11 +143,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - gemfile: Gemfile
-            ruby: '2.7'
+          - ruby: '2.7'
+            gemfile: Gemfile
             script: spec_safari
-          - gemfile: gemfiles/Gemfile.chrome_edge
-            ruby: '2.7'
+          - ruby: '2.7'
+            gemfile: gemfiles/Gemfile.chrome_edge
             script: spec_edge
     env:
       NOKOGIRI_USE_SYSTEM_LIBRARIES: true
