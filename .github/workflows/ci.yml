@@ -145,25 +145,9 @@ jobs:
         include:
           - gemfile: Gemfile
             ruby: '2.7'
-            # xcode10.2
-            # addons:
-            #  homebrew:
-            #    taps: homebrew/cask-versions
-            #    casks: safari-technology-preview
-            # before_script:
-            #  - "sudo /usr/bin/safaridriver --enable"
-            #  - "sudo '/Applications/Safari Technology Preview.app/Contents/MacOS/safaridriver' --enable"
             script: spec_safari
           - gemfile: gemfiles/Gemfile.chrome_edge
             ruby: '2.7'
-            # xcode10.2
-            # addons:
-            #  homebrew:
-            #    taps: homebrew/cask-versions
-            #    casks: microsoft-edge-dev
-            # before_install:
-            #  - wget https://msedgewebdriverstorage.blob.core.windows.net/edgewebdriver/76.0.168.0/edgedriver_mac64.zip
-            #  - unzip edgedriver_mac64.zip -d /usr/local/bin
             script: spec_edge
     env:
       NOKOGIRI_USE_SYSTEM_LIBRARIES: true
