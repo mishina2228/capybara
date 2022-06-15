@@ -1,9 +1,14 @@
 # frozen_string_literal: true
 
-# require 'rack-session'
+require 'rack'
+# if %w[gemfiles/Gemfile.chrome_edge gemfiles/Gemfile.edge-firefox].include?(ENV.fetch('BUNDLE_GEMFILE', nil))
+begin
+  require 'rack/session'
+rescue LoadError
+  # rack/session is required only if the edge rack is used
+end
 require 'sinatra/base'
 require 'tilt/erb'
-require 'rack'
 require 'yaml'
 
 class TestApp < Sinatra::Base

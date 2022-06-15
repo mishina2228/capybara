@@ -8,6 +8,7 @@ gem 'xpath', github: 'teamcapybara/xpath'
 gem 'selenium-webdriver', '>= 4.0.0.beta2'
 gem 'webdrivers', github: 'titusfortner/webdrivers', branch: 'main'
 gem 'rack', github: 'rack/rack'
+gem 'rack-session', github: 'rack/rack-session'
 gem 'sinatra', github: 'sinatra/sinatra', branch: 'master'
 
 gem 'puma', github: 'puma/puma'
