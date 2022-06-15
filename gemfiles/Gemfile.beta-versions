@@ -6,6 +6,7 @@ gemspec path: '..'
 gem 'pkg-config' # needed by nokogiri
 gem 'xpath', github: 'teamcapybara/xpath'
 gem 'rack', github: 'rack/rack'
+gem 'rack-session', github: 'rack/rack-session'
 gem 'sinatra', github: 'sinatra/sinatra', branch: 'master'
 gem 'rspec', github: 'rspec/rspec', branch: 'main'
 gem 'rspec-core', github: 'rspec/rspec-core', branch: 'main'
@@ -16,4 +17,3 @@ gem 'cucumber', github: 'cucumber/cucumber-ruby'
 # gem 'cucumber-core', github: 'cucumber/cucumber-ruby-core'
 gem 'puma', github: 'puma/puma'
 gem 'selenium-webdriver', '>= 4.0.0.alpha7'
-
