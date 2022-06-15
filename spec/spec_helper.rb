@@ -80,6 +80,7 @@ module Capybara
     def self.log_selenium_driver_version(mod)
       mod = mod::Service if ::Selenium::WebDriver::Service.respond_to? :driver_path
       path = mod.driver_path
+      $stdout.puts "mod.driver_path: #{path}"
       path = path.call if path.respond_to? :call
       $stdout.puts `#{path.gsub(' ', '\ ')} --version`
     end
