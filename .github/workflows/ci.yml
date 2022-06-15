@@ -158,15 +158,18 @@ jobs:
           - ruby: '2.7'
             gemfile: Gemfile
             script: spec_safari
+            name: spec_safari, Gemfile
           - ruby: '2.7'
             gemfile: gemfiles/Gemfile.chrome_edge
             script: spec_edge
+            name: spec_edge, Gemfile.chrome_edge
     env:
       NOKOGIRI_USE_SYSTEM_LIBRARIES: true
       JAVA_OPTS: -Djava.security.egd=file:/dev/urandom
       WD_CACHE_TIME: 0
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     continue-on-error: true
+    name: macos (${{ matrix.name }})
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
