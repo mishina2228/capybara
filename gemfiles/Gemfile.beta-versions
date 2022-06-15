@@ -13,7 +13,7 @@ gem 'rspec-support', github: 'rspec/rspec-support', branch: 'main'
 gem 'rspec-mocks', github: 'rspec/rspec-mocks', branch: 'main'
 gem 'rspec-expectations', github: 'rspec/rspec-expectations', branch: 'main'
 gem 'cucumber', github: 'cucumber/cucumber-ruby'
-gem 'cucumber-core', github: 'cucumber/cucumber-ruby-core'
+# gem 'cucumber-core', github: 'cucumber/cucumber-ruby-core'
 gem 'puma', github: 'puma/puma'
 gem 'selenium-webdriver', '>= 4.0.0.alpha7'
 
