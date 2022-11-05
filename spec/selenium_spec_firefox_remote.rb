@@ -21,8 +21,8 @@ def ensure_selenium_running!
   rescue StandardError
     if timer.expired?
       raise 'Selenium is not running. ' \
-            "You can run a selenium server easily with: \n" \
-            '  $ docker-compose up -d selenium_firefox'
+            "You can run a selenium server easily with: \n. " \
+            '$ docker-compose up -d selenium_firefox'
     else
       puts 'Waiting for Selenium docker instance...'
       sleep 1
@@ -65,6 +65,8 @@ Capybara::SpecHelper.run_specs TestSessions::RemoteFirefox, FIREFOX_REMOTE_DRIVE
   when /#accept_confirm should work with nested modals$/
     # skip because this is timing based and hence flaky when set to pending
     skip 'Broken in FF 63 - https://bugzilla.mozilla.org/show_bug.cgi?id=1487358' if firefox_gte?(63, @session)
+  when /Capybara::Session selenium_chrome node #shadow_root should get visible text/
+    pending "Selenium doesn't currently support getting visible text for shadow root elements"
   end
 end
 

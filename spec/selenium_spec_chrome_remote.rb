@@ -21,8 +21,8 @@ def ensure_selenium_running!
   rescue StandardError
     if timer.expired?
       raise 'Selenium is not running. ' \
-            "You can run a selenium server easily with: \n" \
-            '  $ docker-compose up -d selenium_chrome'
+            "You can run a selenium server easily with: \n  " \
+            '$ docker-compose up -d selenium_chrome'
     else
       puts 'Waiting for Selenium docker instance...'
       sleep 1
@@ -62,6 +62,8 @@ Capybara::SpecHelper.run_specs TestSessions::Chrome, CHROME_REMOTE_DRIVER.to_s, 
        'Capybara::Session selenium_chrome_remote #attach_file with multipart form should fire change once for each set of files uploaded',
        'Capybara::Session selenium_chrome_remote #attach_file with multipart form should fire change once when uploading multiple files from empty'
     pending "Selenium with Remote Chrome doesn't support multiple file upload" unless selenium_gte?(3.14)
+  when /Capybara::Session selenium_chrome node #shadow_root should get visible text/
+    pending "Selenium doesn't currently support getting visible text for shadow root elements"
   end
 end
 

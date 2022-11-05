@@ -1,5 +1,5 @@
 # Version 3.38.0
-Release date: unreleased
+Release date: 2022-11-03
 
 ### Changed
 
@@ -7,16 +7,26 @@ Release date: unreleased
 
 ### Added
 
-* Support upcoming Selenium 4.3 changes to click offset calculations
+* Support Selenium 4.3 changes to click offset calculations
 * `click`, `double_click`, `right_click` can now be called on the session to click the currently scoped element (or document)
 * `Session#within` now passes the scoped element to the block
 * Support rack-test 2+
+* Retry interval is now configurable [Masahiro NOMOTO]
+* Support Puma 6 - Issue #2590
+* Selenium: DetachedShadowRootError is treated as an invalid element error [Perryn Fowler]
+* Selenium: When inspected shadow roots will have a tag name of "ShadowRoot"
+* `evaluate_async_script` added to Session::DSL_METHODS [Henry Blyth]
 
 ### Fixed
 
 * Use higher precision clock in Capybara::Helpers::Timer if available
 * rack-test driver behavior with \r\n - Issue #2547 [Stefan Hoffmann]
 * Updated for deprecation of positional parameters in Selenium::WebDriver::ActionBuilder#pause
+* Explicitly set cause on server raised errors
+* Options no longer duplicated in have_xxx invalid option error message [Yudai Takada]
+* Animation disabler is now threadsafe [Daniel Sheppard]
+* Server connection count tracking [Oleksandr K.]
+* Ensure scopes are reset when session is [Henry Blyth]
 
 # Version 3.37.1
 Release date: 2022-05-09
@@ -830,7 +840,7 @@ Release date: 2018-03-23
 
 ### Changed
 
-* Visibile text whitespace is no longer fully normalized in favor of being more in line with the WebDriver spec for visible text
+* Visible text whitespace is no longer fully normalized in favor of being more in line with the WebDriver spec for visible text
 * Drivers are expected to close extra windows when resetting the session
 * Selenium driver supports Date/Time when filling in date/time/datetime-local inputs
 * `current_url` returns the url for the top level browsing context
@@ -1236,7 +1246,7 @@ Release date: 2016-01-27
 
 # Version 2.6.0
 
-Relase date: 2016-01-17
+Release date: 2016-01-17
 
 ### Fixed
 
@@ -1300,7 +1310,7 @@ Release date: 2014-10-13
 
 # Version 2.4.3
 
-Relase date: 2014-09-21
+Release date: 2014-09-21
 
 ### Fixed
 

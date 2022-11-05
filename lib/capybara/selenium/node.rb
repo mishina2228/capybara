@@ -10,6 +10,8 @@ class Capybara::Selenium::Node < Capybara::Driver::Node
   include Capybara::Selenium::Scroll
 
   def visible_text
+    raise NotImplementedError, 'Getting visible text is not currently supported directly on shadow roots' if shadow_root?
+
     native.text
   end
 
@@ -178,7 +180,12 @@ class Capybara::Selenium::Node < Capybara::Driver::Node
   end
 
   def tag_name
-    @tag_name ||= native.tag_name.downcase
+    @tag_name ||=
+      if native.respond_to? :tag_name
+        native.tag_name.downcase
+      else
+        shadow_root? ? 'ShadowRoot' : 'Unknown'
+      end
   end
 
   def visible?; boolean_attr(native.displayed?); end
@@ -526,6 +533,10 @@ private
     # Selenium 3 -> 4 changed the return of ref
     type_or_id, id = native.ref
     id || type_or_id
+  end
+
+  def shadow_root?
+    defined?(::Selenium::WebDriver::ShadowRoot) && native.is_a?(::Selenium::WebDriver::ShadowRoot)
   end
 
   GET_XPATH_SCRIPT = <<~'JS'

@@ -31,7 +31,7 @@ Metrics/BlockLength:
     - 'spec/**/*'
     - 'lib/capybara/spec/**/*'
     - 'capybara.gemspec'
-  IgnoredMethods:
+  AllowedMethods:
     - Capybara.add_selector
     - Capybara::Selector::FilterSet.add
 
@@ -166,6 +166,9 @@ RSpec/ContextWording:
 RSpec/NestedGroups:
   Enabled: false
 
+RSpec/NoExpectationExample:
+  Enabled: false
+
 RSpec/DescribeClass:
   Enabled: false
 
@@ -177,4 +180,7 @@ RSpec/PredicateMatcher:
     - 'spec/basic_node_spec.rb'
 
 RSpec/Capybara/FeatureMethods:
+  Enabled: false
+
+RSpec/Capybara/NegationMatcher:
   Enabled: false

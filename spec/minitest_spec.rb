@@ -15,6 +15,10 @@ class MinitestTest < Minitest::Test
     Capybara.reset_sessions!
   end
 
+  def self.test_order
+    :sorted
+  end
+
   def test_assert_text
     assert_text('Form', normalize_ws: false)
     assert_no_text('Not on the page')

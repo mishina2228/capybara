@@ -103,11 +103,13 @@ Capybara::SpecHelper.run_specs TestSessions::SeleniumIE, 'selenium', capybara_sk
   when /#attach_file with a block/
     skip 'Hangs IE testing for unknown reason'
   when /drag_to.*HTML5/
-    pending "IE doesn't support a DataTransfer constuctor"
+    pending "IE doesn't support a DataTransfer constructor"
   when /template elements should not be visible/
     skip "IE doesn't support template elements"
   when /Element#drop/
     pending "IE doesn't support DataTransfer constructor"
+  when /Capybara::Session selenium_chrome node #shadow_root should get visible text/
+    pending "Selenium doesn't currently support getting visible text for shadow root elements"
   end
 end
 

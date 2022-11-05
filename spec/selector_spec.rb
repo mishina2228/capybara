@@ -111,13 +111,13 @@ RSpec.describe Capybara do
     end
 
     describe 'adding a selector' do
-      it 'can set default visiblity' do
+      it 'can set default visibility' do
         described_class.add_selector :hidden_field do
           visible :hidden
           css { |_sel| 'input[type="hidden"]' }
         end
 
-        expect(string).to have_no_css('input[type="hidden"]')
+        expect(string).to have_no_css('input[type="hidden"]') # rubocop:disable RSpec/Capybara/SpecificMatcher
         expect(string).to have_selector(:hidden_field)
       end
     end

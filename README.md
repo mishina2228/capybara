@@ -336,7 +336,7 @@ By default, Capybara uses the `:rack_test` driver, which is fast but limited: it
 does not support JavaScript, nor is it able to access HTTP resources outside of
 your Rack application, such as remote APIs and OAuth services. To get around
 these limitations, you can set up a different default driver for your features.
-For example if you'd prefer to run everything in Selenium, you could do:
+For example, if you'd prefer to run everything in Selenium, you could do:
 
 ```ruby
 Capybara.default_driver = :selenium # :selenium_chrome and :selenium_chrome_headless are also registered
@@ -630,7 +630,7 @@ JS
 
 ### <a name="modals"></a>Modals
 
-In drivers which support it, you can accept, dismiss and respond to alerts, confirms and prompts.
+In drivers which support it, you can accept, dismiss and respond to alerts, confirms, and prompts.
 
 You can accept or dismiss alert messages by wrapping the code that produces an alert in a block:
 
@@ -781,7 +781,7 @@ expect(page).to have_content('baz')
 If clicking on the *foo* link triggers an asynchronous process, such as
 an Ajax request, which, when complete will add the *bar* link to the page,
 clicking on the *bar* link would be expected to fail, since that link doesn't
-exist yet. However Capybara is smart enough to retry finding the link for a
+exist yet. However, Capybara is smart enough to retry finding the link for a
 brief period of time before giving up and throwing an error. The same is true of
 the next line, which looks for the content *baz* on the page; it will retry
 looking for that content for a brief time. You can adjust how long this period
@@ -795,13 +795,25 @@ Be aware that because of this behaviour, the following two statements are **not*
 equivalent, and you should **always** use the latter!
 
 ```ruby
-!page.has_xpath?('a')
-page.has_no_xpath?('a')
+# Given use of a driver where the page is loaded when visit returns
+# and that Capybara.predicates_wait is `true`
+# consider a page where the `a` tag is removed through AJAX after 1s
+visit(some_path)
+!page.has_xpath?('a')  # is false
+page.has_no_xpath?('a')  # is true
 ```
 
-The former would immediately fail because the content has not yet been removed.
-Only the latter would wait for the asynchronous process to remove the content
-from the page.
+First expression:
+- `has_xpath?('a')` is called right after `visit` returns. It is `true` because the link has not yet been removed
+- Capybara does not wait upon successful predicates/assertions, therefore **has_xpath? returns `true` immediately**
+- The expression returns `false` (because it is negated with the leading `!`)
+
+Second expression:
+- `has_no_xpath?('a')` is called right after `visit` returns. It is `false` because the link has not yet been removed.
+- Capybara waits upon failed predicates/assertions, therefore **has_no_xpath? does not return `false` immediately**
+- Capybara will periodically re-check the predicate/assertion up to the `default_max_wait_time` defined
+- after 1s, the predicate becomes `true` (because the link has been removed)
+- The expression returns `true`
 
 Capybara's RSpec matchers, however, are smart enough to handle either form.
 The two following statements are functionally equivalent:
