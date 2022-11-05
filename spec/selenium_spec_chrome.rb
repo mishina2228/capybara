@@ -8,7 +8,6 @@ require 'rspec/shared_spec_matchers'
 
 CHROME_DRIVER = :selenium_chrome
 
-$stdout.puts "Selenium::WebDriver::Chrome.path: #{Selenium::WebDriver::Chrome.path}"
 Selenium::WebDriver::Chrome.path = `which chrome`.strip if ENV.fetch('CI', nil) && ENV.fetch('CHROME_BETA', nil)
 
 browser_options = ::Selenium::WebDriver::Chrome::Options.new
